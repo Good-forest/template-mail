@@ -10,12 +10,12 @@ Ce dépôt contient le code HTML/CSS du template d’email envoyé aux clients G
 - La largeur est fixée à `850px` max.
 - 👉 **Raison :** certains clients de messagerie comme Outlook rencontrent des problèmes d’affichage au-delà de `900px`.
 
-### 💅 Propriétés CSS supportées
+###  Propriétés CSS supportées
 - Les propriétés modernes comme `flex`, `display: none`, `border-radius`, `gap`, etc. sont utilisées **avec précaution** et **testées** sur plusieurs clients.
 - Le style du bouton utilise `inline-block` + centrage via `text-align: center` dans le parent — ✅ compatible Outlook.
 
 ### 📱 Responsive design
-- Pas de `vw/vh` : ces unités sont **mal supportées** en email.
+- Pas de `vw/vh` : ces unités sont **mal supportées** en email :-(.
 - À la place, plusieurs breakpoints sont définis (`800px`, `600px`, `500px`, etc.) pour s’adapter à la majorité des appareils.
 
 ### 📦 Bouton CTA
