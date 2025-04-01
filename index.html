@@ -57,8 +57,11 @@
       }
 
       .bg-forest {
-        background: url(images/foret-bg.jpeg) center no-repeat;
+        background: url(https://drive.google.com/thumbnail?id=1qP-SCNCQS2YikL_g8guwD4UvQsBVwO6I&sz=w3000) center no-repeat;
+        background-attachment: fixed;
+        background-position: center;
         background-size: cover;
+        background-repeat: no-repeat;
         height: 300px;
       }
 
@@ -146,10 +149,6 @@
         width: 10%;
       }
 
-      .gps {
-        width: 30%;
-      }
-
       .previous_analysis {
         font-size: x-small;
       }
@@ -157,6 +156,17 @@
       .footer {
         font-size: 14px;
         margin-top: 24px;
+      }
+.btn-table {
+        display: inline-block;
+        background: #3d5a40;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 6px;
+        padding: 8px 24px;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 100%;
       }
 
       .btn {
@@ -177,21 +187,21 @@
       }
 
       /* Desktop */
-      @media screen and (min-width: 800px) {
-        .anomaly-list {
-          display: none;
-        }
-
-        .anomaly-table {
-          display: table;
-        }
-      }
+      <!-- @media screen and (min-width: 800px) { -->
+      <!--   .anomaly-list { -->
+      <!--     display: none; -->
+      <!--   } -->
+      <!---->
+      <!--   .anomaly-table { -->
+      <!--     display: table; -->
+      <!--   } -->
+      <!-- } -->
 
       /* Mobile */
       @media screen and (max-width: 799px) {
-        .anomaly-list {
-          display: block;
-        }
+        <!-- .anomaly-list { -->
+        <!--   display: block; -->
+        <!-- } -->
 
         .anomaly-item {
           display: flex;
@@ -199,9 +209,9 @@
           justify-content: space-between;
         }
 
-        .anomaly-table {
-          display: none;
-        }
+        <!-- .anomaly-table { -->
+        <!--   display: none; -->
+        <!-- } -->
 
         .container {
           width: 100%;
@@ -223,9 +233,9 @@
           margin: 0 0 8px;
         }
 
-               .anomaly-table {
-          display: none;
-        }
+        <!--        .anomaly-table { -->
+        <!--   display: none; -->
+        <!-- } -->
 
         .anomaly-item {
           background: #f5f5f5;
@@ -264,7 +274,10 @@
   </head>
   <body>
     <header class="container">
-      <img src="images/logo-entier.png" alt="Logo de Goodforest" />
+
+
+
+      <img src="https://drive.google.com/thumbnail?id=1q5d6iCy2oZMje96dkShMlQ1JJTy0jcRx&sz=w3000" alt="Logo de Goodforest" />
       <p>{{ item.now }}</p>
     </header>
 
@@ -280,64 +293,67 @@
         <p>
           Nous avons le plaisir de vous transmettre votre
           <strong>bilan</strong> concernant la santé de
-          <strong>vos parcelles</strong>
-          <!-- dans la forêt <strong>{{item.forest_name}}</strong>. -->
+          <strong>vos parcelles</strong> dans la forêt <strong>{{item.forest_name}}</strong>.
         </p>
 
-        <h2>🔍 Détails du suivi</h2>
-        <ul>
-          <li><strong>Parcelles :</strong> {{item.plots.count}} parcelles / {{item.plots.area}} ha</li>
-          <li><strong>Période analysée :</strong> {{item.start}} au {{item.end}}</li>
-          {% if item.last_analysis != None %}
-          <li><strong>Dernière analyse :</strong> {{item.last_analysis}}</li>
-          {% endif %}
+        <!-- <h2>🔍 Détails du suivi</h2> -->
+        <!-- <ul> -->
+          <!-- <li><strong>Parcelles :</strong> {{item.plots.count}} parcelles / {{item.plots.area}} ha</li> -->
+          <!-- <li><strong>Période analysée :</strong> {{item.start}} au {{item.end}}</li> -->
+          <!-- {% if item.last_analysis != None %} -->
+          <!-- <li><strong>Dernière analyse :</strong> {{item.last_analysis}}</li> -->
+          <!-- {% endif %} -->
           <p><a href="{{item.drive_link}}">Lien vers votre drive Goodforest</a></p>
-        </ul>
+        <!-- </ul> -->
       </section>
 
       <section class="section">
         <h2>Résumé des principaux indicateurs</h2>
+
         <div class="indicators">
           <div class="indicator">
             <div class="label">
               Anomalies détectées:
             </div>
             <h3>{{item.anomaly_count.value}}</h3>
-            <div class="{{item.anomaly_count.trend.class}}">
-        {{item.anomaly_count.trend.text}}
-            </div>
-            {% if item.soil.previous.value != None %}
-            <div>
-                <small class="previous_analysis">Dernière analyse: {{item.anomaly_count.previous.value}}</small>
-            </div>
-            {% endif %}
           </div>
           <div class="indicator">
             <div class="label">
               Nouveau dépérissements:
             </div>
             <h3>{{item.dieback.value}}<span style="font-size:small">ha ({{item.dieback.percent}}%)</span></h3>
-            <div class="{{item.dieback.trend.class}}">
-{{item.dieback.trend.text}}
-            </div>
-            {% if item.soil.previous.value != None %}
-            <div>
-                <small class="previous_analysis">Dernière analyse: {{item.dieback.previous.value}} ha ({{item.dieback.previous.percent}}%)</small>
-            </div>
-            {% endif %}
           </div>
           <div class="indicator">
             <div class="label">
               Coupe ou chablis:
             </div>
             <h3>{{item.soil.value}}<span style="font-size:small"> ha ({{item.soil.percent}}%)</span></h3>
-            <div class="{{item.soil.trend.class}}">{{item.soil.trend.text}}
+          </div>
+        </div>
+
+        <div class="indicators">
+
+          <div class="indicator">
+            <div class="label">
+              Images sentinel 2:
             </div>
-            {% if item.soil.previous.value != None %}
-            <div>
-                <small class="previous_analysis">Dernière analyse: {{item.soil.previous.value}}ha ({{item.soil.previous.percent}}%)</small>
+            <h3>{{item.sentinel_count}}</h3>
+          </div>
+          <div class="indicator">
+
+            <div class="label">
+              Surface totale:
             </div>
-            {% endif %}
+            <h3>{{item.plots.area}}</h3>
+            <h3></h3>
+          </div>
+
+          <div class="indicator">
+            <div class="label">
+              Parcelles:
+            </div>
+            <h3>{{item.plots.count}}</h3>
+            <h3></h3>
           </div>
         </div>
       </section>
@@ -352,7 +368,7 @@
               <th class="std">Détection</th>
               <th class="std">Anomalie</th>
               <th class="std">Surface</th>
-              <th class="gps">GPS</th>
+              <th class="std">GPS</th>
             </tr>
           </thead>
           <tbody>
@@ -363,36 +379,21 @@
               <td><strong class="{{ano.anomaly.class}}">{{ano.anomaly.text}}</strong></td>
               <td>{{ano.area}} ha</td>
               <td>
-                <a href="https://www.google.com/maps?q={{ano.coordinates.y}},{{ano.coordinates.x}}" target="_blank">
-                  {{ano.coordinates.y}}, {{ano.coordinates.x}}
-                </a>
+                <div class="btn-wrapper" style="text-align: center">
+                  <a
+                    class="btn-table"
+                  href="https://www.google.com/maps/@{{ano.coordinates.y}},{{ano.coordinates.x}},14z" target="_blank">
+
+                    Voir
+                  </a>
+                </div>
+
               </td>
             </tr>
             {% endfor %}
           </tbody>
         </table>
 
-        <!-- LIST version Mobile -->
-        <div class="anomaly-list">
-            {% for ano in item.anomalies %}
-          <div class="anomaly-item">
-            <div class="list-reference"><strong>Référence :</strong> {{ano.id}} | </div>
-            <div class="list-anomalie">
-              <strong>Anomalie :</strong> <span class="{{ano.anomaly.class}}">{{ano.anomaly.text}} | </span>
-            </div>
-
-            <div class="list-anomalie">
-              <strong>Surface :</strong> {{ano.area}} ha |
-            </div>
-            <div class="list-gps">
-              <strong>GPS :</strong>
-              <a href="https://www.google.com/maps?q={{ano.coordinates.y}},{{ano.coordinates.x}}" target="_blank">
-                {{ano.coordinates.y}}, {{ano.coordinates.x}}
-              </a>
-            </div>
-          </div>
-            {% endfor %}
-        </div>
       </section>
 
       <section class="section">
@@ -404,7 +405,7 @@
               <th class="std">Référence</th>
               <th class="std">Détection</th>
               <th class="std">Surface</th>
-              <th class="gps">GPS</th>
+              <th class="std">GPS</th>
             </tr>
           </thead>
           <tbody>
@@ -414,45 +415,30 @@
               <td>{{ano.date}}</td>
               <td>{{ano.area}} ha</td>
               <td>
-                <a href="https://www.google.com/maps?q={{ano.coordinates.y}},{{ano.coordinates.x}}" target="_blank">
-                  {{ano.coordinates.y}}, {{ano.coordinates.x}}
+<div class="btn-wrapper" style="text-align: center">
+                <a
+                  class="btn-table"
+                  href="https://www.google.com/maps/@{{ano.coordinates.y}},{{ano.coordinates.x}},14z" target="_blank">
+                  Voir
                 </a>
+              </div>
               </td>
             </tr>
             {% endfor %}
           </tbody>
         </table>
-
-        <!-- LIST version Mobile -->
-        <div class="anomaly-list">
-            {% for ano in item.soils %}
-          <div class="anomaly-item">
-            <div class="list-reference"><strong>Référence :</strong> {{ano.id}} | </div>
-
-            <div class="list-anomalie">
-              <strong>Surface :</strong> {{ano.area}} ha |
-            </div>
-            <div class="list-gps">
-              <strong>GPS :</strong>
-              <a href="https://www.google.com/maps?q={{ano.coordinates.y}},{{ano.coordinates.x}}" target="_blank">
-                {{ano.coordinates.y}}, {{ano.coordinates.x}}
-              </a>
-            </div>
-          </div>
-            {% endfor %}
-        </div>
       </section>
 
       {% if item.map_url %}
       <section class="section">
         <h2>Cartes des anomalies et coupes</h2>
-        <iframe
-          width="100%"
-          height="500px"
-          src="{{item.map_url}}"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
+        <!-- <iframe -->
+        <!--   width="100%" -->
+        <!--   height="500px" -->
+        <!--   src="{{item.map_url}}" -->
+        <!--   frameborder="0" -->
+        <!--   allowfullscreen -->
+        <!-- ></iframe> -->
 
         <div class="btn-wrapper" style="text-align: center">
           <a
