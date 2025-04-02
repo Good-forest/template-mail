@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rapport Goodforest</title>
+  <style>
+    body {
+      background: #ffffff;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #333333;
+      line-height: 1.6;
+      padding: 0;
+    }
+    .container {
+      width: 100%;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+    .padding {
+      padding: 24px 16px;
+    }
+    header img {
+      max-width: 150px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 58px;
+      color: #ffffff;
+      margin: 0 0 8px;
+    }
+    .section {
+      padding: 24px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .section:last-child {
+      border-bottom: none;
+    }
+    .section h2 {
+      font-size: 20px;
+      margin-bottom: 16px;
+      color: #111111;
+    }
+    .bg-forest {
+      background: #d7e5d0; /* Fallback color */
+      background: url('https://drive.google.com/thumbnail?id=1qP-SCNCQS2YikL_g8guwD4UvQsBVwO6I&sz=w3000') center no-repeat;
+      background-size: cover;
+      height: 300px;
+    }
+    .indicators {
+      width: 100%;
+      background: #f5f5f5;
+    }
+    .indicator {
+      padding: 16px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .indicator h3 {
+      font-size: 64px;
+      margin: 0;
+      color: #3d5a40;
+    }
+    .indicator .label {
+      font-weight: bold;
+      margin-top: 8px;
+    }
+    .trend {
+      font-size: 14px;
+      font-weight: bold;
+      color: #41bb4d;
+    }
+    .trend-stable {
+      font-size: 14px;
+      font-weight: bold;
+      color: #f4a259;
+    }
+    .trend.up {
+      font-size: 14px;
+      font-weight: bold;
+      color: #d72638;
+    }
+    .anomaly-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .anomaly-table th,
+    .anomaly-table td {
+      border: 1px solid #cccccc;
+      padding: 8px;
+      font-size: 14px;
+      text-align: left;
+    }
+    .anomaly-table th {
+      background: #d7e5d0;
+    }
+    .std {
+      width: 10%;
+    }
+    .previous_analysis {
+      font-size: x-small;
+    }
+    .footer {
+      font-size: 14px;
+      margin-top: 24px;
+    }
+    .btn-table {
+      display: inline-block;
+      background: #3d5a40;
+      color: #ffffff !important;
+      text-decoration: none;
+      border-radius: 6px;
+      padding: 8px 24px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 100%;
+    }
+    .btn {
+      display: inline-block;
+      background: #3d5a40;
+      color: #ffffff !important;
+      text-decoration: none;
+      border-radius: 6px;
+      margin: 16px auto;
+      padding: 8px 24px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 100%;
+    }
+    .signature {
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>
+          <img src="https://drive.google.com/thumbnail?id=1q5d6iCy2oZMje96dkShMlQ1JJTy0jcRx&sz=w3000" alt="Logo de Goodforest" style="max-width: 150px; margin-bottom: 12px;" />
+        </td>
+        <td style="text-align: right;">
+          <p>{{ item.now }}</p>
+        </td>
+      </tr>
+    </table>
+  </header>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f0f0f0;">
+  <tr>
+    <td background="https://drive.google.com/thumbnail?id=1qP-SCNCQS2YikL_g8guwD4UvQsBVwO6I&sz=w3000" bgcolor="#70bbd9" valign="top" style="background-size: cover; background-position: center; height: 300px;">
+      <!--[if gte mso 9]>
+      <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width: 100%; height: 300px;">
+        <v:fill type="frame" src="https://your-image-host.com/path-to-your-image.jpg" />
+        <v:textbox inset="0,0,0,0">
+      <![endif]-->
+      <div>
+        <h1 style="font-size: 58px; color: #ffffff; margin: 0 auto; width: 100%; max-width: 850px; text-align: center;">
+          Rapport du<br>
+          {{item.start}} au {{item.end}}
+        </h1>
+      </div>
+      <!--[if gte mso 9]>
+        </v:textbox>
+      </v:rect>
+      <![endif]-->
+    </td>
+  </tr>
+</table>
+
+  <main class="container">
+    <section class="section">
+      <p>Bonjour {{item.user.firstName}} {{item.user.lastName}},</p>
+      <p>
+        Nous avons le plaisir de vous transmettre votre
+        <strong>bilan</strong> concernant la santé de
+        <strong>vos parcelles</strong> dans la forêt <strong>{{item.forest_name}}</strong>.
+      </p>
+
+      <div class="btn-wrapper" style="text-align: center">
+        <a href="{{item.drive_link}}" class="btn" target="blank">Votre drive Goodforest</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Résumé des principaux indicateurs</h2>
+      <table class="indicators" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="indicator">
+            <div class="label">Anomalies détectées:</div>
+            <h3>{{item.anomaly_count.value}}</h3>
+          </td>
+          <td class="indicator">
+            <div class="label">Nouveau dépérissements:</div>
+            <h3>{{item.dieback.value}}<span style="font-size:small">ha ({{item.dieback.percent}}%)</span></h3>
+          </td>
+          <td class="indicator">
+            <div class="label">Coupe ou chablis:</div>
+            <h3>{{item.soil.value}}<span style="font-size:small"> ha ({{item.soil.percent}}%)</span></h3>
+          </td>
+        </tr>
+        <tr>
+          <td class="indicator">
+            <div class="label">Images sentinel 2:</div>
+            <h3>{{item.sentinel_count}}</h3>
+          </td>
+          <td class="indicator">
+            <div class="label">Surface totale:</div>
+            <h3>{{item.plots.area}} <span style="font-size:small">ha</span></h3>
+          </td>
+          <td class="indicator">
+            <div class="label">Parcelles:</div>
+            <h3>{{item.plots.count}}</h3>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Anomalies</h2>
+      <table class="anomaly-table">
+        <thead>
+          <tr>
+            <th class="std">Référence</th>
+            <th class="std">Détection</th>
+            <th class="std">Anomalie</th>
+            <th class="std">Surface</th>
+            <th class="std">GPS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ano in item.anomalies %}
+          <tr>
+            <td>{{ano.id}}</td>
+            <td>{{ano.date}}</td>
+            <td><strong style="{{ano.anomaly.style}}">{{ano.anomaly.text}}</strong></td>
+            <td>{{ano.area}} ha</td>
+            <td>
+              <div class="btn-wrapper" style="text-align: center">
+                <a class="btn-table" href="https://www.google.com/maps/search/?api=1&query={{ano.coordinates.y}},{{ano.coordinates.x}}" target="_blank">Voir</a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Coupes/Chablis</h2>
+      <table class="anomaly-table">
+        <thead>
+          <tr>
+            <th class="std">Référence</th>
+            <th class="std">Détection</th>
+            <th class="std">Surface</th>
+            <th class="std">GPS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ano in item.soils %}
+          <tr>
+            <td>{{ano.id}}</td>
+            <td>{{ano.date}}</td>
+            <td>{{ano.area}} ha</td>
+            <td>
+              <div class="btn-wrapper" style="text-align: center">
+                <a class="btn-table" href="https://www.google.com/maps?q={{ano.coordinates.y}},{{ano.coordinates.x}},14z" target="_blank">Voir</a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    {% if item.map_url %}
+    <section class="section">
+      <div class="btn-wrapper" style="text-align: center">
+        <a href="{{item.map_url}}" class="btn" target="blank">Voir ma carte détaillée</a>
+      </div>
+    </section>
+    {% endif %}
+
+    <div class="footer">
+      <p>Nous restons à vos côtés pour vous aider à interpréter ces résultats et définir les meilleures actions à mettre en place.</p>
+      <p>Merci pour votre engagement dans la préservation des forêts 🌿</p>
+      <div class="signature">
+        <strong>Xavier Louchart</strong><br />
+        Directeur Scientifique Goodforest
+      </div>
+    </div>
+  </main>
+</body>
+</html>
+
