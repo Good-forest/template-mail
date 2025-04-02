@@ -1,496 +1,283 @@
+
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rapport Goodforest</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rapport Goodforest</title>
+  <style>
+    body {
+      background: #ffffff;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #333333;
+      line-height: 1.6;
+      padding: 0;
+    }
+    .container {
+      width: 100%;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+    .padding {
+      padding: 24px 16px;
+    }
+    header img {
+      max-width: 150px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 58px;
+      color: #ffffff;
+      margin: 0 0 8px;
+    }
+    .section {
+      padding: 24px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .section:last-child {
+      border-bottom: none;
+    }
+    .section h2 {
+      font-size: 20px;
+      margin-bottom: 16px;
+      color: #111111;
+    }
+    .bg-forest {
+      background: #d7e5d0; /* Fallback color */
+      background: url('https://drive.google.com/thumbnail?id=1qP-SCNCQS2YikL_g8guwD4UvQsBVwO6I&sz=w3000') center no-repeat;
+      background-size: cover;
+      height: 300px;
+    }
+    .indicators {
+      width: 100%;
+      background: #f5f5f5;
+    }
+    .indicator {
+      padding: 16px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .indicator h3 {
+      font-size: 64px;
+      margin: 0;
+      color: #3d5a40;
+    }
+    .indicator .label {
+      font-weight: bold;
+      margin-top: 8px;
+    }
+    .trend {
+      font-size: 14px;
+      font-weight: bold;
+      color: #41bb4d;
+    }
+    .trend-stable {
+      font-size: 14px;
+      font-weight: bold;
+      color: #f4a259;
+    }
+    .trend.up {
+      font-size: 14px;
+      font-weight: bold;
+      color: #d72638;
+    }
+    .anomaly-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .anomaly-table th,
+    .anomaly-table td {
+      border: 1px solid #cccccc;
+      padding: 8px;
+      font-size: 14px;
+      text-align: left;
+    }
+    .anomaly-table th {
+      background: #d7e5d0;
+    }
+    .std {
+      width: 10%;
+    }
+    .previous_analysis {
+      font-size: x-small;
+    }
+    .footer {
+      font-size: 14px;
+      margin-top: 24px;
+    }
+    .btn-table {
+      display: inline-block;
+      background: #3d5a40;
+      color: #ffffff !important;
+      text-decoration: none;
+      border-radius: 6px;
+      padding: 8px 24px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 100%;
+    }
+    .btn {
+      display: inline-block;
+      background: #3d5a40;
+      color: #ffffff !important;
+      text-decoration: none;
+      border-radius: 6px;
+      margin: 16px auto;
+      padding: 8px 24px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 100%;
+    }
+    .signature {
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>
+          <img src="https://drive.google.com/thumbnail?id=1q5d6iCy2oZMje96dkShMlQ1JJTy0jcRx&sz=w3000" alt="Logo de Goodforest" style="max-width: 150px; margin-bottom: 12px;" />
+        </td>
+        <td style="text-align: right;">
+          <p>{{ item.now }}</p>
+        </td>
+      </tr>
+    </table>
+  </header>
 
-    <style>
-      :root {
-        --green: #3d5a40;
-        --dynamic-green: #41bb4d;
-        --light-green: #d7e5d0;
-        --orange: #f4a259;
-        --red: #d72638;
-        --gray: #f5f5f5;
-        --black: #111111;
-        --text: #333333;
-      }
+  <section class="bg-forest">
+    <h1 class="container">
+      Rapport du<br />
+      {{item.start}} au {{item.end}}
+    </h1>
+  </section>
+  <main class="container">
+    <section class="section">
+      <p>Bonjour {{item.user.firstName}} {{item.user.lastName}},</p>
+      <p>
+        Nous avons le plaisir de vous transmettre votre
+        <strong>bilan</strong> concernant la santé de
+        <strong>vos parcelles</strong> dans la forêt <strong>{{item.forest_name}}</strong>.
+      </p>
 
-      a {
-        color: #3d5a40; /* fallback */
-        color: var(--green);
-      }
-
-      body {
-        margin: 0;
-        font-family: "Poppins", Arial, sans-serif;
-        background: #ffffff;
-        color: #333333;
-        color: var(--text);
-        line-height: 1.6;
-        padding: 0;
-      }
-
-      header {
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .container {
-        width: 100%;
-        max-width: 850px;
-        margin: 0 auto;
-      }
-
-      .padding {
-        padding: 24px 16px;
-      }
-
-      header img {
-        max-width: 150px;
-        margin-bottom: 12px;
-      }
-
-      h1 {
-        font-size: 58px;
-        color: #ffffff;
-        margin: 0 0 8px;
-      }
-
-      .section {
-        padding: 24px 0;
-        border-bottom: 1px solid #f5f5f5;
-        border-bottom: 1px solid var(--gray);
-      }
-
-      .section:last-child {
-        border-bottom: none;
-      }
-
-      .section h2 {
-        font-size: 20px;
-        margin-bottom: 16px;
-        color: #111111;
-        color: var(--black);
-      }
-
-      .bg-forest {
-        background: url(images/foret-bg.jpeg) center no-repeat;
-        background-size: cover;
-        height: 300px;
-      }
-
-      .indicators {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        background: #f5f5f5;
-        background: var(--gray);
-        gap: 16px;
-      }
-
-      .indicator {
-        flex: 1;
-        min-width: 180px;
-        padding: 16px;
-        border-radius: 8px;
-        text-align: center;
-      }
-
-      .indicator h3 {
-        font-size: 64px;
-        margin: 0;
-        color: #3d5a40;
-        color: var(--green);
-      }
-
-      .indicator .label {
-        font-weight: bold;
-        margin-top: 8px;
-      }
-
-      .indicator .trend {
-        font-size: 14px;
-        font-weight: bold;
-        color: #41bb4d;
-        color: var(--dynamic-green);
-      }
-
-      .indicator .trend-stable {
-        font-size: 14px;
-        font-weight: bold;
-        color: #f4a259;
-        color: var(--orange);
-      }
-
-      .indicator .trend.up {
-        font-size: 14px;
-        font-weight: bold;
-        color: #d72638;
-        color: var(--red);
-      }
-
-      .anomaly-table {
-        border-collapse: collapse;
-        width: 100%;
-      }
-
-      .anomaly-table th,
-      .anomaly-table td {
-        border: 1px solid #cccccc;
-        padding: 8px;
-        font-size: 14px;
-        text-align: left;
-      }
-
-      .anomaly-table th {
-        background: #d7e5d0;
-        background: var(--light-green);
-      }
-
-      .std {
-        width: 10%;
-      }
-
-      .gps {
-        width: 30%;
-      }
-
-      .footer {
-        font-size: 14px;
-        margin-top: 24px;
-      }
-
-      .btn {
-        display: inline-block; /* Outlook-friendly */
-        mso-padding-alt: 0; /* Outlook fix */
-        background: #3d5a40;
-        background: var(--green);
-        color: #ffffff;
-        text-decoration: none;
-        border-radius: 6px;
-        margin: 16px auto;
-        padding: 8px 24px;
-        font-family: "Poppins", Arial, sans-serif;
-        font-size: 16px;
-        line-height: 100%; /* Outlook fix */
-      }
-
-      .signature {
-        margin-top: 24px;
-      }
-
-      /* Desktop */
-      @media screen and (min-width: 800px) {
-        .anomaly-list {
-          display: none;
-        }
-
-        .anomaly-table {
-          display: block;
-        }
-      }
-
-      @media screen and (max-width: 799px) {
-        .anomaly-list {
-          display: block;
-        }
-
-        .anomaly-item {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-        }
-
-        .anomaly-table {
-          display: none;
-        }
-
-        .container {
-          width: 100%;
-          max-width: 700px;
-          margin: 0 auto;
-        }
-      }
-
-      /* Mobile */
-
-      @media screen and (max-width: 600px) {
-        .container {
-          width: 100%;
-          max-width: 550px;
-          margin: 0 auto;
-        }
-
-        h1 {
-          font-size: 48px;
-          color: #ffffff;
-          margin: 0 0 8px;
-        }
-
-        .indicators {
-          flex-direction: column;
-          gap: 12px;
-        }
-
-        .anomaly-table {
-          display: none;
-        }
-
-        .anomaly-item {
-          background: #f5f5f5;
-          background: var(--gray);
-          border-radius: 6px;
-          padding: 12px;
-          margin-bottom: 12px;
-        }
-
-        .anomaly-item strong {
-          color: #111111;
-          color: var(--black);
-        }
-      }
-
-      @media screen and (max-width: 500px) {
-        .container {
-          width: 100%;
-          max-width: 450px;
-        }
-      }
-
-      @media screen and (max-width: 450px) {
-        .container {
-          width: 100%;
-          max-width: 400px;
-        }
-      }
-
-      @media screen and (max-width: 400px) {
-        .container {
-          width: 100%;
-          max-width: 350px;
-          padding: 24px 8px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <header class="container">
-      <img src="images/loho-entier.svg" alt="Logo de Goodforest" />
-      <p>Date du jour</p>
-    </header>
-
-    <section class="bg-forest">
-      <h1 class="container">
-        Rapport du<br />
-        04 au 28 Mars
-      </h1>
-    </section>
-    <main class="container">
-      <section class="section">
-        <p>Bonjour [Prénom/Nom],</p>
-        <p>
-          Nous avons le plaisir de vous transmettre votre
-          <strong>bilan</strong> concernant la santé de
-          <strong>vos parcelles</strong> dans la forêt <strong>[Nom de la forêt]</strong>.
-        </p>
-
-        <h2>🔍 Détails du suivi</h2>
-        <ul>
-          <li><strong>Parcelles :</strong> [xx] parcelles / [xx] ha</li>
-          <li><strong>Période analysée :</strong> [JJ/MM/AAAA] au [JJ/MM/AAAA]</li>
-          <li><strong>Dernière analyse :</strong> [JJ/MM/AAAA]</li>
-        </ul>
-      </section>
-
-      <section class="section">
-        <h2>Résumé des principaux indicateurs</h2>
-        <div class="indicators">
-          <div class="indicator">
-            <div>
-              Nombres d’anomalies<br />
-              détectées :
-            </div>
-            <h3>8</h3>
-            <div class="label">Anomalies</div>
-            <div class="trend">Baisse ⤵</div>
-          </div>
-          <div class="indicator">
-            <div>
-              Nouveau <br />
-              dépérissement en ha :
-            </div>
-            <h3>1</h3>
-            <div class="label">Dépérissement (25%)</div>
-            <div class="trend-stable">Stable</div>
-          </div>
-          <div class="indicator">
-            <div>
-              Coupe ou chablis<br />
-
-              en ha :
-            </div>
-            <h3>0,2</h3>
-            <div class="label">Coupe/Chablis (5%)</div>
-            <div class="trend up">Hausse ⤴</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Anomalies</h2>
-
-        <!-- TABLE version Desktop -->
-        <table class="anomaly-table">
-          <thead>
-            <tr>
-              <th class="std">Référence</th>
-              <th class="std">Détection</th>
-              <th class="std">Anomalie</th>
-              <th class="std">Coupe</th>
-              <th class="std">Surface</th>
-              <th class="gps">GPS</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>F10023457</td>
-              <td>01/03/2025</td>
-              <td><strong style="color: var(--red)">Forte</strong></td>
-              <td>—</td>
-              <td>0,15 ha</td>
-              <td>
-                <a href="https://www.google.com/maps?q=48.4045,2.6379" target="_blank">
-                  48.4045, 6.2379
-                </a>
-              </td>
-            </tr>
-            <!-- Ajoutez les autres lignes ici -->
-            <tr>
-              <td>F10023457</td>
-              <td>01/03/2025</td>
-              <td><strong style="color: var(--orange)">Moyenne</strong></td>
-              <td>—</td>
-              <td>0,15 ha</td>
-              <td>
-                <a href="https://www.google.com/maps?q=48.4045,2.6379" target="_blank">
-                  48.4045, 6.2379
-                </a>
-              </td>
-            </tr>
-            <!-- Ajoutez les autres lignes ici -->
-            <tr>
-              <td>F10023457</td>
-              <td>01/03/2025</td>
-              <td><strong style="color: var(--dynamic-green)">Moyenne</strong></td>
-              <td>—</td>
-              <td>0,15 ha</td>
-              <td>
-                <a href="https://www.google.com/maps?q=48.4045,2.6379" target="_blank">
-                  48.4045, 6.2379
-                </a>
-              </td>
-            </tr>
-
-            <!-- Ajoutez les autres lignes ici -->
-            <tr>
-              <td>F10023457</td>
-              <td>01/03/2025</td>
-              <td>—</td>
-              <td><strong style="color: var(--green)">Sol Nu</strong></td>
-              <td>0,15 ha</td>
-              <td>
-                <a href="https://www.google.com/maps?q=48.4045,2.6379" target="_blank">
-                  Voir sur Google Maps
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <!-- LIST version Mobile -->
-        <div class="anomaly-list">
-          <div class="anomaly-item">
-            <div class="list-reference"><strong>Référence :</strong> F10023457</div>
-            <div class="list-anomalie">
-              <strong>Anomalie :</strong> <span style="color: var(--red)">Forte</span>
-            </div>
-            <div class="list-gps">
-              <strong>GPS :</strong>
-              <a href="https://www.google.com/maps?q=48.4045,2.6379" target="_blank">
-                48.4045, 6.2379
-              </a>
-            </div>
-          </div>
-          <!-- Répétez pour chaque ligne -->
-          <div class="anomaly-item">
-            <div class="list-reference"><strong>Référence :</strong> F10023457</div>
-            <div class="list-anomalie">
-              <strong>Anomalie :</strong>
-              <span style="color: var(--orange)">Moyenne</span>
-            </div>
-            <div class="list-gps">
-              <strong>GPS :</strong>
-              <a href="https://www.google.com/maps?q=48.4045,2.6379" target="_blank">
-                48.4045, 6.2379
-              </a>
-            </div>
-          </div>
-          <!-- Répétez pour chaque ligne -->
-          <div class="anomaly-item">
-            <div class="list-reference"><strong>Référence :</strong> F10023457</div>
-            <div class="list-anomalie">
-              <strong>Anomalie :</strong>
-              <span style="color: var(--dynamic-green)">Faible</span>
-            </div>
-            <div class="list-gps">
-              <strong>GPS :</strong>
-              <a href="https://www.google.com/maps?q=48.4045,2.6379" target="_blank">
-                48.4045, 6.2379
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Recommandation d’inspection</h2>
-        <p>[Nom de la forêt] / [x] parcelles / [x] hectares</p>
-        <iframe
-          width="100%"
-          height="500px"
-          src="https://studio.foursquare.com/map/public/6ef34e62-2d6a-4dbd-b418-a9369d07b4fd/embed"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
-
-        <div class="btn-wrapper" style="text-align: center">
-          <a
-            href="https://studio.foursquare.com/map/public/6ef34e62-2d6a-4dbd-b418-a9369d07b4fd"
-            class="btn"
-            target="blank"
-            >Voir ma carte détaillée</a
-          >
-        </div>
-      </section>
-
-      <div class="footer">
-        <p>
-          Nous restons à vos côtés pour vous aider à interpréter ces résultats et définir
-          les meilleures actions à mettre en place.
-        </p>
-        <p>Merci pour votre engagement dans la préservation des forêts 🌿</p>
-
-        <div class="signature">
-          <strong>Xavier Louchart</strong><br />
-          Directeur Scientifique Goodforest
-        </div>
+      <div class="btn-wrapper" style="text-align: center">
+        <a href="{{item.drive_link}}" class="btn" target="blank">Votre drive Goodforest</a>
       </div>
-    </main>
-  </body>
+    </section>
+
+    <section class="section">
+      <h2>Résumé des principaux indicateurs</h2>
+      <table class="indicators" width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="indicator">
+            <div class="label">Anomalies détectées:</div>
+            <h3>{{item.anomaly_count.value}}</h3>
+          </td>
+          <td class="indicator">
+            <div class="label">Nouveau dépérissements:</div>
+            <h3>{{item.dieback.value}}<span style="font-size:small">ha ({{item.dieback.percent}}%)</span></h3>
+          </td>
+          <td class="indicator">
+            <div class="label">Coupe ou chablis:</div>
+            <h3>{{item.soil.value}}<span style="font-size:small"> ha ({{item.soil.percent}}%)</span></h3>
+          </td>
+        </tr>
+        <tr>
+          <td class="indicator">
+            <div class="label">Images sentinel 2:</div>
+            <h3>{{item.sentinel_count}}</h3>
+          </td>
+          <td class="indicator">
+            <div class="label">Surface totale:</div>
+            <h3>{{item.plots.area}} <span style="font-size:small">ha</span></h3>
+          </td>
+          <td class="indicator">
+            <div class="label">Parcelles:</div>
+            <h3>{{item.plots.count}}</h3>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Anomalies</h2>
+      <table class="anomaly-table">
+        <thead>
+          <tr>
+            <th class="std">Référence</th>
+            <th class="std">Détection</th>
+            <th class="std">Anomalie</th>
+            <th class="std">Surface</th>
+            <th class="std">GPS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ano in item.anomalies %}
+          <tr>
+            <td>{{ano.id}}</td>
+            <td>{{ano.date}}</td>
+            <td><strong class="{{ano.anomaly.class}}">{{ano.anomaly.text}}</strong></td>
+            <td>{{ano.area}} ha</td>
+            <td>
+              <div class="btn-wrapper" style="text-align: center">
+                <a class="btn-table" href="https://www.google.com/maps/@{{ano.coordinates.y}},{{ano.coordinates.x}},14z" target="_blank">Voir</a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Coupes/Chablis</h2>
+      <table class="anomaly-table">
+        <thead>
+          <tr>
+            <th class="std">Référence</th>
+            <th class="std">Détection</th>
+            <th class="std">Surface</th>
+            <th class="std">GPS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ano in item.soils %}
+          <tr>
+            <td>{{ano.id}}</td>
+            <td>{{ano.date}}</td>
+            <td>{{ano.area}} ha</td>
+            <td>
+              <div class="btn-wrapper" style="text-align: center">
+                <a class="btn-table" href="https://www.google.com/maps/@{{ano.coordinates.y}},{{ano.coordinates.x}},14z" target="_blank">Voir</a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    {% if item.map_url %}
+    <section class="section">
+      <div class="btn-wrapper" style="text-align: center">
+        <a href="{{item.map_url}}" class="btn" target="blank">Voir ma carte détaillée</a>
+      </div>
+    </section>
+    {% endif %}
+
+    <div class="footer">
+      <p>Nous restons à vos côtés pour vous aider à interpréter ces résultats et définir les meilleures actions à mettre en place.</p>
+      <p>Merci pour votre engagement dans la préservation des forêts 🌿</p>
+      <div class="signature">
+        <strong>Xavier Louchart</strong><br />
+        Directeur Scientifique Goodforest
+      </div>
+    </div>
+  </main>
+</body>
 </html>
+
